@@ -1,0 +1,54 @@
+name: bun - Test and Coverage
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "src/**"
+      - "packages/**"
+      - "apps/**"
+      - "public/**"
+      - ".github/workflows/**"
+      - "package.json"
+      - "vite.config.ts"
+      - "vite.config.js"
+      - "astro.config.mjs"
+      - "yarn.lock"
+      - "bun.lockb"
+    branches:
+      - main
+
+# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
+# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: ⎔ Setup bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: 📥 Download deps
+        run: |
+          bun install
+
+      - name: 🧪 Test
+        run: |
+          bun lint
+          echo "### Test Coverage 🧪 " >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+          bun run test --silent --coverage >> $GITHUB_STEP_SUMMARY
+          echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
