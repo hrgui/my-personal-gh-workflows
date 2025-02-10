@@ -1,21 +1,6 @@
 name: bun - Test and Coverage
 on:
-  workflow_dispatch:
-  push:
-    paths:
-      - "src/**"
-      - "packages/**"
-      - "apps/**"
-      - "public/**"
-      - ".github/workflows/**"
-      - "package.json"
-      - "vite.config.ts"
-      - "vite.config.js"
-      - "astro.config.mjs"
-      - "yarn.lock"
-      - "bun.lockb"
-    branches:
-      - main
+  workflow_call:
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
