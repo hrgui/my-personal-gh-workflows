@@ -1,4 +1,4 @@
-name: Run Linting and Unit Testing
+name: NPM - Run Linting and Unit Testing
 on:
   workflow_call:
 jobs:
@@ -12,9 +12,9 @@ jobs:
         uses: actions/checkout@v3
 
       - name: ⎔ Setup node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 16
+          node-version: 22
 
       - name: 📥 Download deps
         uses: bahmutov/npm-install@v1
