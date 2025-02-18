@@ -8,6 +8,10 @@ on:
       dry_run:
         required: false
         type: boolean
+      npm_tag:
+        required: false
+        type: string
+        default: latest
     secrets:
       node_auth_token:
         required: true
@@ -40,7 +44,7 @@ jobs:
           NPM_CONFIG_TOKEN: ${{ secrets.node_auth_token }}
 
       - name: Publish
-        run: bun publish --access public
+        run: bun publish --access public --tag ${{ inputs.npm_tag }}
         if: ${{ !inputs.dry_run }}
         env:
           NPM_CONFIG_TOKEN: ${{ secrets.node_auth_token }}
