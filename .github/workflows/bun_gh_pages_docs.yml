@@ -23,12 +23,11 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-defaults:
-  run:
-    working-directory: ${{ inputs.working_directory }}
-
 jobs:
   build:
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
     runs-on: ubuntu-latest
     steps:
       - name: ⬇️ Checkout repo
