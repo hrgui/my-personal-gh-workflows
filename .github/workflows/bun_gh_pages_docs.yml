@@ -1,6 +1,15 @@
 name: bun - Build and Deploy for Github Pages - Docs Folder
 on:
   workflow_call:
+    inputs:
+      working_directory:
+        required: true
+        type: string
+        default: ./docs
+      dist_directory:
+        required: true
+        type: string
+        default: ./dist
 
 # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
 permissions:
@@ -16,7 +25,7 @@ concurrency:
 
 defaults:
   run:
-    working-directory: ./docs
+    working-directory: ${{ inputs.working_directory }}
 
 jobs:
   build:
@@ -46,7 +55,7 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           # Upload entire repository
-          path: "./dist"
+          path: ${{ inputs.dist_directory }}
 
   deploy:
     environment:
